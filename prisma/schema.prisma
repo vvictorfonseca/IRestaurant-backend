@@ -9,3 +9,122 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model adminis {
+  id          Int         @id @default(autoincrement())
+  login       String
+  password    String
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model users {
+  id                Int         @id @default(autoincrement())
+  adressId         Int
+  firstName         String
+  lastName          String
+  phone             String
+  email             String      @unique
+  password          String
+  confirmPassword   String
+  
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  adress            adresses    @relation(fields: [adressId], references: [id])
+
+  assessments       assessments[]
+  carts             carts[]
+  purchases         purchases[]
+}
+
+model adresses {
+  id            Int         @id @default(autoincrement())
+  city          String
+  state         String
+  street        String
+  cep           String
+  number        String
+  district      String
+  complement    String
+  
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          users[]
+}
+
+model assessments {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  assessment    String
+  grade         Int
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          users       @relation(fields: [userId], references: [id])
+}
+
+model products {
+  id            Int         @id @default(autoincrement())
+  photo         String      
+  name          String      @unique
+  description   String
+  price         String
+  units         String
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  carts         carts[]
+}
+
+model carts {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  productId     Int
+  units         Int
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          users       @relation(fields: [userId], references: [id])
+  products      products    @relation(fields: [productId], references: [id])
+
+  orders        orders[]
+}
+
+model orders {
+  id            Int             @id @default(autoincrement())
+  cartId        Int
+  status        orderStatus     @default(processing)
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  cart          carts       @relation(fields: [cartId], references: [id])
+
+  purchases     purchases[]
+}
+
+model purchases {
+  id            Int             @id @default(autoincrement())
+  userId        Int
+  orderId       Int
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          users       @relation(fields: [userId], references: [id])
+  order         orders      @relation(fields: [orderId], references: [id])
+}
+
+enum orderStatus {
+  processing
+  confirmed
+  preparing
+  delivering
+  delivered
+}
