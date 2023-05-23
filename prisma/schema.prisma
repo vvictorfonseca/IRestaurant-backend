@@ -21,7 +21,7 @@ model adminis {
 
 model users {
   id                Int         @id @default(autoincrement())
-  adressId         Int
+  adressId          Int
   firstName         String
   lastName          String
   phone             String

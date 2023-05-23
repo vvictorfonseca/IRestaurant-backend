@@ -3,6 +3,51 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Adress {
+  cep: String!
+  city: String!
+  complement: String!
+  district: String!
+  number: String!
+  state: String!
+  street: String!
+}
+
+input CreateAdressInput {
+  cep: String!
+  city: String!
+  complement: String!
+  district: String!
+  number: String!
+  state: String!
+  street: String!
+}
+
+input CreateUserInput {
+  adressId: Float
+  confirmPassword: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  phone: String!
+}
+
+type Mutation {
+  createAdress(data: CreateAdressInput!): Adress!
+  createUser(data: CreateUserInput!): User!
+}
+
 type Query {
   helloWorld: String!
+}
+
+type User {
+  adressId: Float
+  confirmPassword: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  phone: String!
 }
