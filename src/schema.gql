@@ -24,7 +24,7 @@ input CreateAdressInput {
 }
 
 input CreateUserInput {
-  adressId: Float
+  adressId: Float!
   confirmPassword: String!
   email: String!
   firstName: String!
