@@ -1,8 +1,8 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 
 import { context } from "../context";
-import { CreateUserInput } from "../dtos/inputs/create-user-input";
-import { User } from "../dtos/models/create-user-model";
+import { CreateSigninInput } from "../dtos/inputs/signin-user-input";
+import { SiginUser } from "../dtos/models/sigin-user-model";
 
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
@@ -10,21 +10,20 @@ import jwt from "jsonwebtoken";
 @Resolver()
 export class SigninResolver {
 
-  // @Query(() => String)
-  // async helloWorld() {
-  //   return 'Deu bom!'
-  // }
+  @Mutation(() => SiginUser)
+  async signIn(@Arg('data') data: CreateSigninInput) {
 
-  @Mutation(() => User)
-  async signIn(@Arg('data') data: CreateUserInput) {
     const userInfo = await context.prisma.users.findFirst({
+      where: {
+        email: data.email
+      },
       select: {
+        id: true,
         email: true,
         password: true,
-        id: true,
+        firstName: true,
         lastName: true
-      },
-      take: 1
+      }
     });
 
     if (!userInfo) {
@@ -54,6 +53,7 @@ export class SigninResolver {
       expiresAt
     );
 
-    return token;
+    const res = {...userInfo, token: token};
+    return res;
   }
 }
