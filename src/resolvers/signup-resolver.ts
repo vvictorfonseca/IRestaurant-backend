@@ -23,12 +23,4 @@ export class SignupResolver {
 
     return signupService.createUser(data, ctx)
   }
-
-  @Mutation(() => Adress)
-  async createAdress(@Arg('data') data: CreateAdressInput) {
-
-    const newAdress = await context.prisma.adresses.create({ data: data })
-
-    return newAdress
-  }
 }
