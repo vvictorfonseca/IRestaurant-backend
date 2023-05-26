@@ -4,7 +4,7 @@ import { Context } from "../context";
 import { ApolloError } from "apollo-server";
 import { UserRepository } from "../repositories/user-repository";
 import { CreateSigninInput } from "../dtos/inputs/signin-user-input";
-import { SiginUser } from "../dtos/models/sigin-user-model";
+import { SiginUser } from "../dtos/models/signin-user-model";
 
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
