@@ -1,4 +1,5 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
+import { ApolloError } from "apollo-server";
 
 import { context } from "../context";
 import { CreateSigninInput } from "../dtos/inputs/signin-user-input";
@@ -27,10 +28,7 @@ export class SigninResolver {
     });
 
     if (!userInfo) {
-      throw {
-        type: "Not_Found",
-        message: "E-mail not register",
-      };
+      throw new ApolloError('E-mail not register', 'NOT_FOUND');
     }
 
     const isCorrectPassword = bcrypt.compareSync(
@@ -39,10 +37,7 @@ export class SigninResolver {
     );
 
     if (!isCorrectPassword) {
-      throw {
-        type: "Unauthorized",
-        message: "Wrong password",
-      };
+      throw new ApolloError('Wrong password', 'UNAUTHORIZED');
     }
 
     const key: string = (process.env.JWT_SECRET as string);
