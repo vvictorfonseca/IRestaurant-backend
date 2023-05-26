@@ -21,7 +21,6 @@ model adminis {
 
 model users {
   id                Int         @id @default(autoincrement())
-  adressId          Int
   firstName         String
   lastName          String
   phone             String
@@ -32,8 +31,7 @@ model users {
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
 
-  adress            adresses    @relation(fields: [adressId], references: [id])
-
+  adresses          adresses[]
   assessments       assessments[]
   carts             carts[]
   purchases         purchases[]
@@ -41,6 +39,7 @@ model users {
 
 model adresses {
   id            Int         @id @default(autoincrement())
+  userId        Int
   city          String
   state         String
   street        String
@@ -52,7 +51,7 @@ model adresses {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
-  user          users[]
+  user          users       @relation(fields: [userId], references: [id])
 }
 
 model assessments {

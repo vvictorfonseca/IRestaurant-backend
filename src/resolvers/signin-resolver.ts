@@ -1,7 +1,7 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { ApolloError } from "apollo-server";
 
-import { context } from "../context";
+import { Context, context } from "../context";
 import { CreateSigninInput } from "../dtos/inputs/signin-user-input";
 import { SiginUser } from "../dtos/models/sigin-user-model";
 

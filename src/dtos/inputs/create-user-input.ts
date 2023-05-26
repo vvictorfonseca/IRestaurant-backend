@@ -19,7 +19,4 @@ export class CreateUserInput {
 
   @Field()
   confirmPassword: string
-
-  @Field()
-  adressId: number
 }

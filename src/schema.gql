@@ -11,6 +11,7 @@ type Adress {
   number: String!
   state: String!
   street: String!
+  userId: Float!
 }
 
 input CreateAdressInput {
@@ -21,6 +22,7 @@ input CreateAdressInput {
   number: String!
   state: String!
   street: String!
+  userId: Float!
 }
 
 input CreateSigninInput {
@@ -29,7 +31,6 @@ input CreateSigninInput {
 }
 
 input CreateUserInput {
-  adressId: Float!
   confirmPassword: String!
   email: String!
   firstName: String!

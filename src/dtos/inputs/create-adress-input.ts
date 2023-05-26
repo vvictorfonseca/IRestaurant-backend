@@ -3,6 +3,9 @@ import { Field, InputType } from "type-graphql";
 @InputType()
 export class CreateAdressInput {
   @Field()
+  userId: number
+
+  @Field()
   city: string
 
   @Field()
