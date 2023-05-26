@@ -6,11 +6,13 @@ import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { SignupResolver } from "./resolvers/signup-resolver";
 import { context } from "./context";
+import { AdressResolver } from "./resolvers/adress-resolver";
 
 async function main() {
   const schema = await buildSchema({
     resolvers: [
-      SignupResolver
+      SignupResolver,
+      AdressResolver
     ],
     emitSchemaFile: path.resolve(__dirname, 'schema.gql')
   })

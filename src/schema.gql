@@ -11,6 +11,7 @@ type Adress {
   number: String!
   state: String!
   street: String!
+  userId: Float!
 }
 
 input CreateAdressInput {
@@ -21,10 +22,10 @@ input CreateAdressInput {
   number: String!
   state: String!
   street: String!
+  userId: Float!
 }
 
 input CreateUserInput {
-  adressId: Float
   confirmPassword: String!
   email: String!
   firstName: String!
@@ -43,7 +44,6 @@ type Query {
 }
 
 type User {
-  adressId: Float
   confirmPassword: String!
   email: String!
   firstName: String!
