@@ -11,7 +11,7 @@ const userRepository = new UserRepository()
 
 export class AdressService {
   async createAdress(data: CreateAdressInput, @Ctx() ctx: Context): Promise<Adress> {
-    const userInfo = userRepository.validateUserExistById(data.userId, ctx)
+    const userInfo = await userRepository.validateUserExistById(data.userId, ctx)
     
     if (!userInfo) {
       throw new ApolloError('This user is not registered!', 'BAD_REQUEST')
