@@ -25,6 +25,11 @@ input CreateAdressInput {
   userId: Float!
 }
 
+input CreateSigninInput {
+  email: String!
+  password: String!
+}
+
 input CreateUserInput {
   confirmPassword: String!
   email: String!
@@ -37,10 +42,16 @@ input CreateUserInput {
 type Mutation {
   createAdress(data: CreateAdressInput!): Adress!
   createUser(data: CreateUserInput!): User!
+  signIn(data: CreateSigninInput!): SiginUser!
 }
 
 type Query {
   helloWorld: String!
+}
+
+type SiginUser {
+  email: String!
+  token: String!
 }
 
 type User {
